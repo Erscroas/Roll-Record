@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RollAndRecord.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RollAndRecord.Maui.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarBackgroundColor="{StaticResource WarmTobaccoBrown}"
+    Shell.TabBarForegroundColor="{StaticResource SoftCreamWhite}"
+    Shell.TabBarTitleColor="{StaticResource SoftCreamWhite}">
+
+    <TabBar Route="MainContent">
+        <Tab Route="Expenses" Icon="dollar.png" Title="Expenses">
+            <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
+        </Tab>
+        <Tab Route="Home" Icon="home.png" Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
+        </Tab>
+        <Tab Route="Settings" Icon="settings.png" Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

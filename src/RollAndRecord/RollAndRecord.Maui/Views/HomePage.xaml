@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:RollAndRecord.Maui.ViewModels"
+             xmlns:models="clr-namespace:RollAndRecord.Core.Models;assembly=RollAndRecord.Core"
+             x:Class="RollAndRecord.Maui.Views.HomePage"
+             x:DataType="viewmodels:HomeViewModel"
+             Padding="20,30,20,0"
+             Title="">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <toolkit:StatusBarBehavior StatusBarColor="Transparent" />
+    </ContentPage.Behaviors>
+    <Grid RowDefinitions="*">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Customer">
+                    <Grid Padding="10" ColumnDefinitions="Auto, Auto">
+                        <Label Grid.Column="0" Text="{Binding Firstname}" WidthRequest="50" HeightRequest="50" />
+                        <Label Grid.Column="1" Text="{Binding Name}" WidthRequest="50" HeightRequest="50" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
