@@ -28,7 +28,7 @@ namespace RollAndRecord.Maui.ViewModels
         {
             await Shell.Current.GoToAsync($"{nameof(CustomerDetailPage)}", new Dictionary<string, object>
             {
-                ["Customer"] = new Customer { Id = Guid.Empty }
+                ["CustomerId"] = Guid.Empty
             });
         }
 
@@ -39,7 +39,7 @@ namespace RollAndRecord.Maui.ViewModels
             
             await Shell.Current.GoToAsync($"{nameof(CustomerDetailPage)}", new Dictionary<string, object>
             {
-                ["Customer"] = SelectedCustomer
+                ["CustomerId"] = SelectedCustomer.Id
             });
         }
     }

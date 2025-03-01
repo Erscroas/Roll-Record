@@ -1,35 +1,28 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RollAndRecord.Core.Interfaces.Repositories;
-using RollAndRecord.Core.Models;
+using RollAndRecord.Maui.NativeCore.Interfaces;
+using RollAndRecord.Maui.NativeCore.UIModels;
 
 namespace RollAndRecord.Maui.ViewModels.CustomerViewModels;
 
-[QueryProperty(nameof(Customer), nameof(Customer))]
-public partial class CustomerDetailViewModel(ICustomerRepository customerRepo) : ObservableObject
+[QueryProperty(nameof(CustomerId), nameof(CustomerId))]
+public partial class CustomerDetailViewModel(ICustomerRepository customerRepo, IMappingUiService mappingUiService) : ObservableObject
 {
-    [ObservableProperty] private Customer _customer = new();
-
-    private bool _isNewCustomer;
+    [ObservableProperty] private UiCustomer _customer = new();
+    [ObservableProperty] private Guid _customerId;
 
     [RelayCommand]
-    private async Task Appearing()
+    private void Appearing()
     {
-        _isNewCustomer = Customer.Id == Guid.Empty;
-
-        if (_isNewCustomer)
-        {
-            Customer = new Customer {Id = Guid.NewGuid()};
-            return;
-        }
         
-        Customer = await customerRepo.Get(Customer.Id);
     }
 
     [RelayCommand]
     private async Task Update()
     {
-        await customerRepo.Save(Customer);
+        var customer = mappingUiService.MapCustomer(Customer);
+        await customerRepo.Save(customer);
         await Shell.Current.GoToAsync("..");
     }
 
@@ -38,15 +31,16 @@ public partial class CustomerDetailViewModel(ICustomerRepository customerRepo) :
     {
         var result = await Shell.Current.DisplayAlert("Delete", "Are you sure you want to delete this customer?", "Yes", "No");
         if(!result) return;
-        
-        await customerRepo.Delete(Customer);
+
+        var customer = mappingUiService.MapCustomer(Customer);
+        await customerRepo.Delete(customer);
         await Shell.Current.GoToAsync("..");
     }
 
     [RelayCommand]
     private async Task AddSale()
     {
-        var sale = new Sale
+        var sale = new UiSale()
         {
             Id = Guid.NewGuid(),
             CustomerId = Customer.Id, 
@@ -61,7 +55,7 @@ public partial class CustomerDetailViewModel(ICustomerRepository customerRepo) :
     [RelayCommand]
     private async Task AddPayment()
     {
-        var payment = new Payment()
+        var payment = new UiPayment()
         {
             Id = Guid.NewGuid(),
             CustomerId = Customer.Id, 

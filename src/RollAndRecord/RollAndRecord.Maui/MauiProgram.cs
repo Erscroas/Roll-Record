@@ -4,6 +4,8 @@ using RollAndRecord.Core;
 using RollAndRecord.Core.Interfaces.Repositories;
 using RollAndRecord.Core.Models;
 using RollAndRecord.Core.Services.Repositories;
+using RollAndRecord.Maui.NativeCore.Interfaces;
+using RollAndRecord.Maui.NativeCore.Services;
 using RollAndRecord.Maui.ViewModels;
 using RollAndRecord.Maui.ViewModels.CustomerViewModels;
 using RollAndRecord.Maui.Views;
@@ -19,6 +21,7 @@ namespace RollAndRecord.Maui
             builder
                 .UseMauiApp<App>()
                 .SetupSqlite()
+                .SetupNativeCore()
                 .SetupPages()
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
@@ -35,15 +38,13 @@ namespace RollAndRecord.Maui
 
         private static MauiAppBuilder SetupSqlite(this MauiAppBuilder builder)
         {
-            #region SQLite
-
             builder.Services.AddSingleton<ISaleTypeRepository, SaleTypeRepository>();
             builder.Services.AddSingleton<ISaleRepository, SaleRepository>();
             builder.Services.AddSingleton<IPaymentRepository, PaymentRepository>();
             builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
             builder.Services.AddSingleton<IExpenseRepository, ExpenseRepository>();
 
-            builder.Services.AddSingleton((serviceProvider) =>
+            builder.Services.AddSingleton((_) =>
             {
                 var database = new SQLiteAsyncConnection(SqLiteConstants.DatabasePath, SqLiteConstants.Flags);
 
@@ -56,8 +57,13 @@ namespace RollAndRecord.Maui
                 return database;
             });
 
-            #endregion
+            return builder;
+        }
 
+        private static MauiAppBuilder SetupNativeCore(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<IMappingUiService, MappingUiService>();
+            
             return builder;
         }
 

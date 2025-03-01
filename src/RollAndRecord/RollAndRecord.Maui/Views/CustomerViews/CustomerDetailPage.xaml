@@ -16,13 +16,13 @@
             <StackLayout Spacing="10">
                 <Grid ColumnDefinitions="80,*" ColumnSpacing="10">
                     <Label Grid.Column="0" Text="Firstname" />
-                    <Entry Grid.Column="1" Text="{Binding Customer.Firstname}" />
+                    <Entry Grid.Column="1" Text="{Binding Customer.FirstName}" />
                 </Grid>
                 <Grid ColumnDefinitions="80,*" ColumnSpacing="10">
                     <Label Grid.Column="0" Text="Name" />
                     <Entry Grid.Column="1" Text="{Binding Customer.Name}" />
                 </Grid>
-                <CollectionView ItemsSource="{Binding Customer.PurchasesList}"
+                <CollectionView ItemsSource="{Binding Customer.Purchases}"
                                 SelectionMode="None" EmptyView="There are no purchases for this customer">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
@@ -42,7 +42,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <Button Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddSaleCommand}"/>
-                <CollectionView ItemsSource="{Binding Customer.PaymentsList}"
+                <CollectionView ItemsSource="{Binding Customer.Payments}"
                                 SelectionMode="None" EmptyView="There are no payments for this customer">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
