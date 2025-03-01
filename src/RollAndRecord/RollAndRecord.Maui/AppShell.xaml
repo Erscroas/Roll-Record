@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:RollAndRecord.Maui.Views"
-    Shell.FlyoutBehavior="Disabled"
+    FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False"
     Shell.TabBarBackgroundColor="{StaticResource WarmTobaccoBrown}"
     Shell.TabBarForegroundColor="{StaticResource SoftCreamWhite}"

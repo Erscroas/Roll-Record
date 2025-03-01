@@ -5,7 +5,9 @@ using RollAndRecord.Core.Interfaces.Repositories;
 using RollAndRecord.Core.Models;
 using RollAndRecord.Core.Services.Repositories;
 using RollAndRecord.Maui.ViewModels;
+using RollAndRecord.Maui.ViewModels.CustomerViewModels;
 using RollAndRecord.Maui.Views;
+using RollAndRecord.Maui.Views.CustomerViews;
 using SQLite;
 namespace RollAndRecord.Maui
 {
@@ -43,7 +45,7 @@ namespace RollAndRecord.Maui
 
             builder.Services.AddSingleton((serviceProvider) =>
             {
-                var database = new SQLiteAsyncConnection(SQLiteConsts.DatabasePath, SQLiteConsts.Flags);
+                var database = new SQLiteAsyncConnection(SqLiteConstants.DatabasePath, SqLiteConstants.Flags);
 
                 database.CreateTableAsync<SaleType>().Wait();
                 database.CreateTableAsync<Sale>().Wait();
@@ -66,6 +68,9 @@ namespace RollAndRecord.Maui
 
             builder.Services.AddTransient<SettingsPage>();
             builder.Services.AddTransient<SettingsViewModel>();
+
+            builder.Services.AddTransient<CustomerDetailPage>();
+            builder.Services.AddTransient<CustomerDetailViewModel>();
 
             return builder;
         }

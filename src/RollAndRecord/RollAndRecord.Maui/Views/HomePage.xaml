@@ -6,22 +6,38 @@
              xmlns:models="clr-namespace:RollAndRecord.Core.Models;assembly=RollAndRecord.Core"
              x:Class="RollAndRecord.Maui.Views.HomePage"
              x:DataType="viewmodels:HomeViewModel"
-             Padding="20,30,20,0"
-             Title="">
+             Padding="20,40,20,20">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <toolkit:StatusBarBehavior StatusBarColor="Transparent" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="*">
-        <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}">
+    <Grid RowDefinitions="*, Auto">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Customers}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                        SelectionChangedCommand="{Binding CustomerSelectedCommand}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,*,70">
+                        <Label Style="{StaticResource BaseLabel}" FontAttributes="Bold" Grid.Column="0" Text="Firstname" />
+                        <Label Style="{StaticResource BaseLabel}" FontAttributes="Bold" Grid.Column="1" Text="Name" />
+                        <Label Style="{StaticResource BaseLabel}" FontAttributes="Bold" Grid.Column="2" Text="Balance" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.HeaderTemplate>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Customer">
-                    <Grid Padding="10" ColumnDefinitions="Auto, Auto">
-                        <Label Grid.Column="0" Text="{Binding Firstname}" WidthRequest="50" HeightRequest="50" />
-                        <Label Grid.Column="1" Text="{Binding Name}" WidthRequest="50" HeightRequest="50" />
+                    <Grid Padding="10" ColumnDefinitions="*,*,70">
+                        <Label Grid.Column="0" Style="{StaticResource BaseLabel}" Text="{Binding Firstname}" />
+                        <Label Grid.Column="1" Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
+                        <Label Grid.Column="2" Style="{StaticResource BaseLabel}" HorizontalOptions="End" Text="{Binding Balance}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <Button Style="{StaticResource PrimaryButton}" Grid.Row="1" Text="Add new customer" Command="{Binding AddCustomerCommand}" />
     </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using System.Collections.ObjectModel;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace RollAndRecord.Core.Models
@@ -12,10 +13,12 @@ namespace RollAndRecord.Core.Models
         public string Name { get; set; } = "";
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<Sale>? Purchases { get; set; }
+        public List<Sale> Purchases { get; set; } = [];
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<Payment>? Payments { get; set; }
-        public decimal? Balacance => Purchases?.Sum(p => p.Amount) - Payments?.Sum(p => p.Amount);
+        public List<Payment> Payments { get; set; } = [];
+        
+        public decimal? Balance => Purchases.Sum(p => p.Amount) - Payments.Sum(p => p.Amount);
+
     }
 }

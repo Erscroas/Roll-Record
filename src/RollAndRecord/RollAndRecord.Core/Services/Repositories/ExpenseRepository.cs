@@ -4,13 +4,9 @@ using SQLite;
 
 namespace RollAndRecord.Core.Services.Repositories
 {
-    public class ExpenseRepository : BaseRepository<Expense>, IExpenseRepository
+    public class ExpenseRepository(SQLiteAsyncConnection database) : BaseRepository<Expense>(database), IExpenseRepository
     {
-        private SQLiteAsyncConnection _database;
-        public ExpenseRepository(SQLiteAsyncConnection database) : base(database)
-        {
-            _database = database;
-        }
+        private SQLiteAsyncConnection _database = database;
 
         public async Task<List<Expense>> GetExpensesByType(ExpenseType type) => await _database.Table<Expense>().Where(e => e.Type == type).ToListAsync();
     }

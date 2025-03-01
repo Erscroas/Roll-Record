@@ -3,7 +3,7 @@
     public interface IBaseRepository<T> where T : class
     {
         Task<List<T>> All();
-        Task<T> Get(int id);
+        Task<T> Get(Guid id);
         Task Save(T entity);
         Task Delete(T entity);
     }

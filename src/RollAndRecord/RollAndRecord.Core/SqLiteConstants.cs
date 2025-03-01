@@ -1,6 +1,6 @@
 ﻿namespace RollAndRecord.Core
 {
-    public class SQLiteConsts
+    public static class SqLiteConstants
     {
         public const string DatabaseName = "rollandrecord.db3";
         public static string DatabasePath =>

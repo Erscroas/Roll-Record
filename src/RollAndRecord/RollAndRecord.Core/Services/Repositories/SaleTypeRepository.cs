@@ -4,12 +4,8 @@ using SQLite;
 
 namespace RollAndRecord.Core.Services.Repositories
 {
-    public class SaleTypeRepository : BaseRepository<SaleType>, ISaleTypeRepository
+    public class SaleTypeRepository(SQLiteAsyncConnection database) : BaseRepository<SaleType>(database), ISaleTypeRepository
     {
-        private SQLiteAsyncConnection _database;
-        public SaleTypeRepository(SQLiteAsyncConnection database) : base(database)
-        {
-            _database = database;
-        }
+        private SQLiteAsyncConnection _database = database;
     }
 }

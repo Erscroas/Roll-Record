@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:RollAndRecord.Maui.ViewModels.CustomerViewModels"
+             xmlns:models="clr-namespace:RollAndRecord.Core.Models;assembly=RollAndRecord.Core"
+             x:Class="RollAndRecord.Maui.Views.CustomerViews.CustomerDetailPage"
+             x:DataType="viewmodels:CustomerDetailViewModel"
+             Padding="20,40,20,20"
+             Title="">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto">
+            <StackLayout Spacing="10">
+                <Grid ColumnDefinitions="80,*" ColumnSpacing="10">
+                    <Label Grid.Column="0" Text="Firstname" />
+                    <Entry Grid.Column="1" Text="{Binding Customer.Firstname}" />
+                </Grid>
+                <Grid ColumnDefinitions="80,*" ColumnSpacing="10">
+                    <Label Grid.Column="0" Text="Name" />
+                    <Entry Grid.Column="1" Text="{Binding Customer.Name}" />
+                </Grid>
+                <CollectionView ItemsSource="{Binding Customer.PurchasesList}"
+                                SelectionMode="None" EmptyView="There are no purchases for this customer">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.HeaderTemplate>
+                        <DataTemplate>
+                            <Label Style="{StaticResource BaseButton}" Text="Purchases" />
+                        </DataTemplate>
+                    </CollectionView.HeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Sale">
+                            <Grid>
+                                <Label Text="{Binding Amount}" />
+                                <Label Text="{Binding Date}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddSaleCommand}"/>
+                <CollectionView ItemsSource="{Binding Customer.PaymentsList}"
+                                SelectionMode="None" EmptyView="There are no payments for this customer">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.HeaderTemplate>
+                        <DataTemplate>
+                            <Label Style="{StaticResource BaseButton}" Text="Payments" />
+                        </DataTemplate>
+                    </CollectionView.HeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Payment">
+                            <Grid>
+                                <Label Text="{Binding Amount}" />
+                                <Label Text="{Binding Date}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddPaymentCommand}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Spacing="10">
+                <Button Style="{StaticResource PrimaryButton}" Text="Update" Command="{Binding UpdateCommand}" />
+                <Button Style="{StaticResource DangerButton}" Text="Delete" Command="{Binding DeleteCommand}" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

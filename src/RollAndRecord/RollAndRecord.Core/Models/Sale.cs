@@ -16,6 +16,9 @@ namespace RollAndRecord.Core.Models
         public Guid CustomerId { get; set; }
 
         [ForeignKey(typeof(SaleType))]
-        public Guid SaleTypeId { get; set; }
+        public  Guid SaleTypeId { get; set; }
+
+        [ManyToOne(CascadeOperations = CascadeOperation.CascadeRead)]
+        public SaleType SaleType { get; set; } = new();
     }
 }

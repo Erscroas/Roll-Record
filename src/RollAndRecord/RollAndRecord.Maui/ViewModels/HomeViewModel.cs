@@ -3,45 +3,44 @@ using CommunityToolkit.Mvvm.Input;
 using RollAndRecord.Core.Interfaces.Repositories;
 using RollAndRecord.Core.Models;
 using System.Collections.ObjectModel;
+using RollAndRecord.Maui.Views.CustomerViews;
 
 namespace RollAndRecord.Maui.ViewModels
 {
-    public partial class HomeViewModel : ObservableObject
+    public partial class HomeViewModel(ICustomerRepository customerRepo) : ObservableObject
     {
         #region Properties
 
-        [ObservableProperty]
-        private ObservableCollection<Customer>? _customers;
+        [ObservableProperty] private ObservableCollection<Customer> _customers = [];
+        [ObservableProperty] private Customer? _selectedCustomer;
 
         #endregion
-
-        private readonly ICustomerRepository _customerRepo;
-
-        public HomeViewModel(ICustomerRepository customerRepo)
-        {
-            _customerRepo = customerRepo;
-        }
 
         [RelayCommand]
         private async Task Appearing()
         {
-            var customers = await _customerRepo.All();
-
-            if(customers == null || !customers.Any())
-            {
-                // add some default customers
-
-                customers = new List<Customer>
-                {
-                    new Customer { Id = Guid.NewGuid(), Firstname = "John", Name = "Doe"},
-                    new Customer { Id = Guid.NewGuid(), Firstname = "Jane", Name = "Doe"},
-                    new Customer { Id = Guid.NewGuid(), Firstname = "Alice", Name = "Smith"},
-                    new Customer { Id = Guid.NewGuid(), Firstname = "Bob", Name = "Smith"},
-                    new Customer { Id = Guid.NewGuid(), Firstname = "Charlie", Name = "Brown"},
-                };
-            }
-
+            var customers = await customerRepo.All();
             Customers = new ObservableCollection<Customer>(customers);
+        }
+
+        [RelayCommand]
+        private async Task AddCustomer()
+        {
+            await Shell.Current.GoToAsync($"{nameof(CustomerDetailPage)}", new Dictionary<string, object>
+            {
+                ["Customer"] = new Customer { Id = Guid.Empty }
+            });
+        }
+
+        [RelayCommand]
+        private async Task CustomerSelected()
+        {
+            if(SelectedCustomer == null) return;
+            
+            await Shell.Current.GoToAsync($"{nameof(CustomerDetailPage)}", new Dictionary<string, object>
+            {
+                ["Customer"] = SelectedCustomer
+            });
         }
     }
 }

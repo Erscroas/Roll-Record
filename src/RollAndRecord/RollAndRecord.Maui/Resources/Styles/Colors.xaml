@@ -11,6 +11,7 @@
     <Color x:Key="BurntBeige">#D1BCA1</Color>
     <Color x:Key="VintageAshGray">#6E6A68</Color>
     <Color x:Key="SoftCreamWhite">#F3ECE2</Color>
+    <Color x:Key="BurntRed">#A63D40</Color>
 
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="PrimaryDark">#ac99ea</Color>
@@ -45,6 +46,7 @@
     <SolidColorBrush x:Key="BurntBeigeBrush" Color="{StaticResource BurntBeige}"/>
     <SolidColorBrush x:Key="VintageAshGrayBrush" Color="{StaticResource VintageAshGray}"/>
     <SolidColorBrush x:Key="SoftCreamWhiteBrush" Color="{StaticResource SoftCreamWhite}"/>
+    <SolidColorBrush x:Key="BurntRedBrush" Color="{StaticResource BurntRed}"/>
 
     <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
     <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
