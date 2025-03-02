@@ -8,8 +8,12 @@ using RollAndRecord.Maui.NativeCore.Interfaces;
 using RollAndRecord.Maui.NativeCore.Services;
 using RollAndRecord.Maui.ViewModels;
 using RollAndRecord.Maui.ViewModels.CustomerViewModels;
+using RollAndRecord.Maui.ViewModels.SaleTypeViewModels;
+using RollAndRecord.Maui.ViewModels.SaleViewModels;
 using RollAndRecord.Maui.Views;
 using RollAndRecord.Maui.Views.CustomerViews;
+using RollAndRecord.Maui.Views.SalePages;
+using RollAndRecord.Maui.Views.SaleTypeViews;
 using SQLite;
 namespace RollAndRecord.Maui
 {
@@ -78,6 +82,15 @@ namespace RollAndRecord.Maui
             builder.Services.AddTransient<CustomerDetailPage>();
             builder.Services.AddTransient<CustomerDetailViewModel>();
 
+            builder.Services.AddTransient<SaleTypesPage>();
+            builder.Services.AddTransient<SaleTypesViewModel>();
+
+            builder.Services.AddTransient<SaleTypeDetailPage>();
+            builder.Services.AddTransient<SaleTypeDetailViewModel>();
+
+            builder.Services.AddTransient<SaleDetailPage>();
+            builder.Services.AddTransient<SaleDetailViewModel>();
+            
             return builder;
         }
     }

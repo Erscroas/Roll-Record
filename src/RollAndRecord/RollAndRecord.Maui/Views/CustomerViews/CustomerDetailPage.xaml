@@ -41,7 +41,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddSaleCommand}"/>
+                <Button IsVisible="{Binding ButtonsAvailable}" Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddSaleCommand}"/>
                 <CollectionView ItemsSource="{Binding Customer.Payments}"
                                 SelectionMode="None" EmptyView="There are no payments for this customer">
                     <CollectionView.ItemsLayout>
@@ -61,7 +61,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddPaymentCommand}"/>
+                <Button IsVisible="{Binding ButtonsAvailable}" Style="{StaticResource PrimaryButton}" Text="Add" Command="{Binding AddPaymentCommand}"/>
             </StackLayout>
             <StackLayout Grid.Row="1" Spacing="10">
                 <Button Style="{StaticResource PrimaryButton}" Text="Update" Command="{Binding UpdateCommand}" />

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:RollAndRecord.Maui.ViewModels.SaleTypeViewModels"
+             x:Class="RollAndRecord.Maui.Views.SaleTypeViews.SaleTypeDetailPage"
+             x:DataType="viewmodels:SaleTypeDetailViewModel"
+             Padding="20,40,20,20">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,Auto" RowSpacing="10">
+            <VerticalStackLayout>
+                <Border Stroke="Transparent">
+                    <Entry Text="{Binding SaleType.TypeName}" />
+                </Border>
+            </VerticalStackLayout>
+            <Button Grid.Row="1" Style="{StaticResource PrimaryButton}" Text="Save" Command="{Binding SaveCommand}"/>
+            <Button Grid.Row="2" Style="{StaticResource DangerButton}" Text="Delete" Command="{Binding DeleteCommand}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

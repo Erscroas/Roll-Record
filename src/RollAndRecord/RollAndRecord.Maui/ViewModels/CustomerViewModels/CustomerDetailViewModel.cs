@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using RollAndRecord.Core.Interfaces.Repositories;
 using RollAndRecord.Maui.NativeCore.Interfaces;
 using RollAndRecord.Maui.NativeCore.UIModels;
+using RollAndRecord.Maui.Views.SalePages;
 
 namespace RollAndRecord.Maui.ViewModels.CustomerViewModels;
 
@@ -11,11 +12,16 @@ public partial class CustomerDetailViewModel(ICustomerRepository customerRepo, I
 {
     [ObservableProperty] private UiCustomer _customer = new();
     [ObservableProperty] private Guid _customerId;
+    [ObservableProperty] private bool _buttonsAvailable;
 
     [RelayCommand]
-    private void Appearing()
+    private async Task Appearing()
     {
-        
+        if (CustomerId == Guid.Empty) return;
+
+        ButtonsAvailable = true;
+        var customer = await customerRepo.Get(CustomerId);
+        Customer = mappingUiService.MapCustomer(customer);
     }
 
     [RelayCommand]
@@ -40,16 +46,10 @@ public partial class CustomerDetailViewModel(ICustomerRepository customerRepo, I
     [RelayCommand]
     private async Task AddSale()
     {
-        var sale = new UiSale()
+        await Shell.Current.GoToAsync(nameof(SaleDetailPage), new Dictionary<string, object>
         {
-            Id = Guid.NewGuid(),
-            CustomerId = Customer.Id, 
-            Amount = 100, 
-            Date = DateTime.Now,
-            SaleTypeId = Guid.NewGuid()
-        };
-
-        Customer.Purchases.Add(sale);
+            ["SaleId"] = Guid.Empty
+        });
     }
 
     [RelayCommand]
